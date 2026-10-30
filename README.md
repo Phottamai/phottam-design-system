@@ -1,14 +1,15 @@
 # Phottam Design System
 
-A monorepo of shared, pure UI component packages for Phottam apps, each documented in Storybook. It is managed with **npm workspaces**, written in **TypeScript**, and publishes to **GitHub Packages** (`npm.pkg.github.com`). The setup mirrors [phottam-platform-kit](../phottam-platform-kit).
+A monorepo of shared, pure UI component packages for Phottam apps, each documented in Storybook. It is managed with **npm workspaces**, written in **TypeScript**, and publishes to **GitHub Packages** (`npm.pkg.github.com`). Packaging mirrors [phottam-platform-kit](../phottam-platform-kit). Releases are fully automatic on merge (no Changesets).
 
 ## Repository structure
 
 ```
-├── .changeset/           # Changesets config and pending version bumps
-├── .github/workflows/    # quality-gate.yml (PR checks) and publish.yml (releases)
-├── ds-b2b/          # @phottamai/ds-b2b: B2B UI primitives + Storybook
+├── .github/workflows/    # quality-gate.yml (PR checks) and release.yml (publish on merge)
+├── ds-b2b/               # @phottamai/ds-b2b: B2B UI primitives + Storybook
 ├── scripts/
+│   ├── bump-version.mjs    # pre-commit hook: bumps the patch version of changed packages
+│   ├── release.mjs         # version check + publish, run by CI
 │   └── export-tarball.mjs  # npm run export:tar: test a package in an app without publishing
 ├── package.json          # Workspaces and root scripts
 ├── .npmrc                # @phottamai scope → GitHub Packages
@@ -21,7 +22,7 @@ A monorepo of shared, pure UI component packages for Phottam apps, each document
 | :-------------------------------------- | :-------- | :-------------------------------------------------------------------------------------------------- |
 | [`@phottamai/ds-b2b`](ds-b2b/README.md) | `ds-b2b/` | Buttons, form items, modals, search, navigation and feedback components ported from phottam-desktop |
 
-To add a package, create a sibling folder with its own `package.json`, add it to `workspaces` in the root `package.json`, and add it to the `options` list in `.github/workflows/publish.yml`.
+To add a package, create a sibling folder with its own `package.json` and add it to `workspaces` in the root `package.json`. The release workflow picks up every non-private workspace automatically.
 
 ## Getting started
 
@@ -40,29 +41,57 @@ npm run build          # build every package into its dist/
 | `npm run typecheck`       | `tsc --noEmit` in every package                                   |
 | `npm run lint`            | ESLint (same rules as platform-kit)                               |
 | `npm run format`          | Prettier (single quotes, no semicolons, matching phottam-desktop) |
-| `npm run changeset`       | Record a version bump for your change                             |
+| `npm run version:check`   | Fail if a package's version is already published                  |
 | `npm run export:tar`      | Pack a package into a sibling app for local testing               |
 
-## Publishing
+## Releasing
 
-Publishing works exactly like platform-kit.
+Versions are bumped **when you commit**, and released **when you merge**.
 
-### Automated (standard releases)
+### 1. Commit: the pre-commit hook bumps the version
 
-1. Change a package, then run `npm run changeset`. Pick the package and the bump (patch / minor / major).
-2. Commit the generated `.changeset/*.md` with your change and merge to `main`.
-3. CI opens or updates a **"chore: version packages"** PR.
-4. Merging that PR publishes the new versions to GitHub Packages.
+When a commit includes changes under a package folder (e.g. `ds-b2b/`), the Husky pre-commit hook (`scripts/bump-version.mjs`) increments that package's patch version (`1.0.3` → `1.0.4`). It writes the new version to the package's `package.json` and to `package-lock.json`, and adds both to the same commit.
 
-`changeset publish` also publishes any package version that isn't on the registry yet. The first merge to `main` therefore publishes `@phottamai/ds-b2b@1.0.0`.
+- **Once per branch.** If your version is already ahead of `origin/main` and `origin/develop`, an earlier commit bumped it, so later commits leave it alone. Run `git fetch` now and then so the hook compares against up-to-date remote branches.
+- **Commits that don't touch a package** (root README, CI, tooling) don't bump anything.
+- **A new package** that isn't on `origin/main` or `origin/develop` yet keeps its starting version. `ds-b2b`'s first release is `1.0.0`.
+- **Minor or major bump:** edit `"version"` in the package's `package.json` yourself (e.g. `1.1.0`). The hook sees it's ahead of the remote and keeps it.
+- **Skip for one commit:** `SKIP_VERSION_BUMP=1 git commit …`. (`--no-verify` also skips it, along with lint-staged.)
+- The hook runs after `npm install`, which sets up Husky.
 
-### Manual
+### 2. Merge: CI publishes the committed version
 
-Run the **Publish Packages** workflow from the Actions tab and pick a package. It builds and publishes the package at its current version without bumping it.
+`.github/workflows/release.yml` runs on every push to `main` or `develop`: format, lint, typecheck, build, then publish to GitHub Packages. **It publishes exactly the version in `package.json`. It never calculates or commits versions.**
+
+| Merge to  | npm dist-tag | Also                                                                                      |
+| --------- | ------------ | ----------------------------------------------------------------------------------------- |
+| `main`    | `latest`     | Git tag + GitHub Release (`@phottamai/ds-b2b@1.0.4`) with notes generated from merged PRs |
+| `develop` | `develop`    | Git tag + GitHub Release marked as a pre-release                                          |
+
+A plain `npm install @phottamai/ds-b2b` gets the newest `main` release, and `@develop` gets the newest `develop` release.
+
+### The build fails if the version wasn't incremented
+
+If a package changed but its version **already exists on GitHub Packages**, nobody incremented it. CI fails with:
+
+```
+❌ @phottamai/ds-b2b@1.0.4 is already published. The version was not incremented.
+```
+
+This is checked twice:
+
+1. **On every PR**, in the quality gate, against the PR's base branch, so you find out before merging.
+2. **On merge**, in the release workflow, right before publishing.
+
+To fix it, make any commit that touches the package (the hook bumps it), or raise `"version"` in its `package.json`. Packages that didn't change are skipped, so docs-only or CI-only PRs pass without a bump. Check locally with `npm run version:check` (needs `NODE_AUTH_TOKEN`).
+
+Two branches that both bumped to the same version both pass their own PR check. After the first merges, the second one's version is taken, and its release fails. Rebase it, then commit again (or edit the version) to bump past it.
+
+> **Keeping develop builds out of an app:** dist-tags only apply to bare installs. A version range such as `^1.0.0` in an app's `package.json` resolves to the highest matching version, which can be a `develop` release. Apps that must only get `main` releases should pin an exact version (`"@phottamai/ds-b2b": "1.0.4"`) and bump it deliberately.
 
 ### PR quality gate
 
-Every PR runs a changeset check, Prettier, ESLint, typecheck, the package build and the Storybook build. Package changes need a changeset. For changes that don't need a release (docs, CI, stories only), run `npx changeset add --empty`.
+Every PR runs the version check, Prettier, ESLint, typecheck, the package build and the Storybook build (`quality-gate.yml`). Since merging publishes immediately, make this gate a required check in the branch protection for `main` and `develop`.
 
 ## Using the packages in other repositories
 
@@ -218,13 +247,14 @@ export function ClientsToolbar() {
 
 ### 6. Update
 
-Releases follow semver via Changesets. Update like any dependency:
+Every merge to `main` or `develop` that changes a package publishes a new version. Pin an exact version if the app must only get `main` releases (see [Releasing](#releasing)). To update:
 
 ```bash
-npm install @phottamai/ds-b2b@latest
+npm install @phottamai/ds-b2b@latest    # newest stable (from main)
+npm install @phottamai/ds-b2b@develop   # newest develop release, for testing unreleased work
 ```
 
-Each package's `CHANGELOG.md` lists what changed per version.
+What changed in each version is listed under the repo's **Releases** on GitHub (notes are generated from the merged PRs).
 
 ### Troubleshooting
 
