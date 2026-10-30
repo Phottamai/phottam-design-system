@@ -18,14 +18,11 @@
     "lint": "eslint .",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release": "npm run build && changeset publish",
     "export:tar": "node scripts/export-tarball.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "version:check": "node scripts/release.mjs --check"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
     "@typescript-eslint/eslint-plugin": "^8.62.1",
     "@typescript-eslint/parser": "^8.62.1",
     "eslint": "^9.14.0",

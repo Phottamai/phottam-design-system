@@ -1,19 +1,17 @@
 name: CI Quality Gate
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - '**'
-      - '!changeset-release/**'
 
 jobs:
   quality-gate:
     name: Code Quality & Build Checks
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'changeset-release')
+    permissions:
+      contents: read
+      packages: read
 
     steps:
       - name: Checkout Repository
@@ -26,13 +24,17 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@phottamai'
 
       - name: Install Dependencies
         run: npm ci
 
-      - name: Check for Changeset
-        if: github.event_name == 'pull_request'
-        run: npx changeset status --since=origin/${{ github.base_ref }}
+      # Fails when the package version already exists on GitHub Packages (it wasn't incremented).
+      - name: Check Version Was Incremented
+        run: npm run version:check -- --changed-since "origin/${{ github.base_ref }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check Code Formatting
         run: npm run format:check

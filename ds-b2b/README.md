@@ -112,7 +112,7 @@ This works the same as platform-kit's `export:tar`. It writes `local_packages/<t
 
 ### Release
 
-Run `npm run changeset` from the repo root and commit the generated file with your change. Merging to `main` opens a "chore: version packages" PR, and merging that PR publishes to GitHub Packages. See the root README.
+The pre-commit hook bumps this package's patch version on your first commit that changes it. Merging to `main` (`@latest`) or `develop` (`@develop`) publishes that version. CI fails if the version is already published, meaning it wasn't incremented. For a minor or major bump, set `version` in `package.json` yourself. See [Releasing](../README.md#releasing) in the root README.
 
 ## Components
 
