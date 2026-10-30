@@ -1,0 +1,11 @@
+/* Storybook only: the app-level setup a consumer would have (fonts, Tailwind, body font). */
+@import './fonts.css';
+@import './package.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}

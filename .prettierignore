@@ -1,0 +1,8 @@
+node_modules
+dist
+storybook-static
+package-lock.json
+CHANGELOG.md
+.changeset/*.md
+**/src/assets/**
+**/src/styles/fonts/**

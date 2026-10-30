@@ -1,0 +1,18 @@
+/*
+ * Tailwind CSS v4 entry for @phottamai/ds-b2b.
+ *
+ *   @import 'tailwindcss';
+ *   @import '@phottamai/ds-b2b/tailwind.css';
+ *
+ * Registers the package's design tokens and tells Tailwind to scan the package's
+ * compiled components for class names.
+ */
+@source '../dist';
+
+@theme {
+  --color-ph-dark: #05060f;
+  --color-ph-dark-lite: #12131a;
+  --color-ph-dark-text: #a3a6ad;
+  --color-ph-border-dark: #20212a;
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
+}

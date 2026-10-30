@@ -1,0 +1,5 @@
+export { default } from './SearchInput'
+export { default as SearchInput } from './SearchInput'
+export type { SearchInputProps } from './SearchInput'
+export { RotatingSearchPlaceholder } from './RotatingSearchPlaceholder'
+export { ROTATING_SEARCH_HINT_PREFIX } from './searchHints'

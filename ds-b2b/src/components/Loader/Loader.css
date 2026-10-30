@@ -1,0 +1,201 @@
+/* Adapted from Uiverse.io by Quezaquo */
+.ph-loader-container {
+  position: relative;
+  font-size: 10px;
+}
+
+.ph-loader-container--sm {
+  width: 4em;
+  height: 1.2em;
+  font-size: 8px;
+}
+
+.ph-loader-container--md {
+  width: 5em;
+  height: 1.5em;
+  font-size: 10px;
+}
+
+.ph-loader-container--lg {
+  width: 6em;
+  height: 1.8em;
+  font-size: 14px;
+}
+
+.ph-loader {
+  position: absolute;
+  inset: 0;
+}
+
+.ph-loader::before,
+.animate-spin.rounded-full::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 5em;
+  height: 0.5em;
+  border-radius: 0.5em;
+  transform: translate(-50%, -50%);
+  animation: ph-loader-slide 2.5s infinite;
+}
+
+@keyframes ph-loader-slide {
+  0% {
+    width: 5em;
+    box-shadow:
+      1em -0.5em #2b546b,
+      -1em 0.5em #aabbc4;
+  }
+
+  35% {
+    width: 0.5em;
+    box-shadow:
+      0 -0.5em #2b546b,
+      0 0.5em #aabbc4;
+  }
+
+  70% {
+    width: 0.5em;
+    box-shadow:
+      -1em -0.5em #2b546b,
+      1em 0.5em #aabbc4;
+  }
+
+  100% {
+    width: 5em;
+    box-shadow:
+      1em -0.5em #2b546b,
+      -1em 0.5em #aabbc4;
+  }
+}
+
+.dark .ph-loader::before,
+.dark .animate-spin.rounded-full::before {
+  animation-name: ph-loader-slide-dark;
+}
+
+@keyframes ph-loader-slide-dark {
+  0% {
+    width: 5em;
+    box-shadow:
+      1em -0.5em #7c9eb3,
+      -1em 0.5em #4a5568;
+  }
+
+  35% {
+    width: 0.5em;
+    box-shadow:
+      0 -0.5em #7c9eb3,
+      0 0.5em #4a5568;
+  }
+
+  70% {
+    width: 0.5em;
+    box-shadow:
+      -1em -0.5em #7c9eb3,
+      1em 0.5em #4a5568;
+  }
+
+  100% {
+    width: 5em;
+    box-shadow:
+      1em -0.5em #7c9eb3,
+      -1em 0.5em #4a5568;
+  }
+}
+
+/* Light spinners on colored buttons (white border ring legacy markup) */
+.animate-spin.rounded-full.border-white::before {
+  animation-name: ph-loader-slide-light;
+}
+
+@keyframes ph-loader-slide-light {
+  0% {
+    width: 5em;
+    box-shadow:
+      1em -0.5em #ffffff,
+      -1em 0.5em rgba(255, 255, 255, 0.45);
+  }
+
+  35% {
+    width: 0.5em;
+    box-shadow:
+      0 -0.5em #ffffff,
+      0 0.5em rgba(255, 255, 255, 0.45);
+  }
+
+  70% {
+    width: 0.5em;
+    box-shadow:
+      -1em -0.5em #ffffff,
+      1em 0.5em rgba(255, 255, 255, 0.45);
+  }
+
+  100% {
+    width: 5em;
+    box-shadow:
+      1em -0.5em #ffffff,
+      -1em 0.5em rgba(255, 255, 255, 0.45);
+  }
+}
+
+/*
+ * Global override: every legacy Tailwind ring spinner (animate-spin + rounded-full)
+ * automatically renders as the sliding loader — no per-file JSX changes needed.
+ */
+.animate-spin.rounded-full {
+  animation: none !important;
+  border: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  font-size: 10px;
+  width: 5em !important;
+  height: 1.5em !important;
+  min-width: 5em;
+  min-height: 1.5em;
+}
+
+.animate-spin.rounded-full.absolute {
+  inset: auto !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
+
+.h-3\.5.w-3\.5.animate-spin.rounded-full {
+  font-size: 6px !important;
+}
+
+.h-4.w-4.animate-spin.rounded-full,
+.w-4.h-4.animate-spin.rounded-full {
+  font-size: 6px !important;
+}
+
+.h-5.w-5.animate-spin.rounded-full,
+.w-5.h-5.animate-spin.rounded-full,
+.h-6.w-6.animate-spin.rounded-full,
+.w-6.h-6.animate-spin.rounded-full {
+  font-size: 8px !important;
+}
+
+.h-7.w-7.animate-spin.rounded-full,
+.h-8.w-8.animate-spin.rounded-full,
+.w-8.h-8.animate-spin.rounded-full {
+  font-size: 10px !important;
+}
+
+.h-10.w-10.animate-spin.rounded-full,
+.w-10.h-10.animate-spin.rounded-full {
+  font-size: 12px !important;
+}
+
+.h-12.w-12.animate-spin.rounded-full,
+.w-12.h-12.animate-spin.rounded-full {
+  font-size: 14px !important;
+}

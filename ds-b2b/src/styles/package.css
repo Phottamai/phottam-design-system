@@ -1,0 +1,135 @@
+/*
+ * @phottamai/ds-b2b — component stylesheet (shipped as dist/styles.css).
+ *
+ * Only what Tailwind utilities can't express: shared component classes, animations and
+ * third-party widget styles. Utilities come from the consuming app's Tailwind build.
+ * Nothing here targets global elements (html, body, input…), so it is safe to load in any app.
+ */
+@import 'react-phone-number-input/style.css';
+@import '../components/PhoneInput/PhoneInputField.css';
+/* Restyles every .animate-spin.rounded-full spinner as the sliding loader (desktop behaviour). */
+@import '../components/Loader/Loader.css';
+
+/* Shared component classes (ported from phottam-desktop main.css) */
+.phottam-theme {
+  @apply text-white font-medium rounded-lg bg-[#7F3CFF] border border-[#EFEFEF] hover:bg-[#7028e6] transition-all duration-200;
+}
+
+.phottam-theme-lite {
+  @apply text-purple-500 dark:text-purple-400 font-medium rounded-lg bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-200;
+}
+
+.phottam-theme-border {
+  @apply font-medium border border-gray-200 dark:border-ph-border-dark text-gray-700 dark:text-ph-dark-text rounded-lg bg-white dark:bg-ph-dark-lite px-4 py-2 transition-all duration-200 hover:bg-gray-100 dark:hover:bg-ph-dark;
+}
+
+.ph-button-secondary {
+  @apply phottam-theme-border px-2 py-2;
+}
+
+.ph-button-tertiary {
+  @apply bg-white dark:bg-ph-dark-lite border border-gray-200 dark:border-ph-border-dark text-gray-700 dark:text-gray-200 rounded-lg px-2 py-2 hover:bg-gray-100 dark:hover:bg-ph-dark transition-all duration-200;
+}
+
+.theme-input {
+  @apply border bg-white dark:bg-[#0f1015] border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-purple-500 dark:focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 dark:focus:ring-purple-500/20 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 rounded-lg;
+}
+
+.theme-input-error {
+  @apply border-red-500 dark:border-red-400 focus:border-red-500 dark:focus:border-red-400 focus:ring-2 focus:ring-red-500/20 dark:focus:ring-red-400/20;
+}
+
+.theme-card {
+  @apply bg-white dark:bg-ph-dark-lite border border-gray-200 dark:border-ph-border-dark shadow-sm dark:shadow-gray-900/20 rounded-lg transition-colors duration-200;
+}
+
+.theme-text-primary {
+  @apply text-gray-900 dark:text-white;
+}
+
+.theme-text-secondary {
+  @apply text-gray-600 dark:text-ph-dark-text;
+}
+
+.theme-text-muted {
+  @apply text-gray-500 dark:text-ph-dark-text;
+}
+
+/* Checkbox: self-contained reset + checkmark, so it doesn't depend on a global form plugin */
+.ph-checkbox {
+  appearance: none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  padding: 0;
+  user-select: none;
+  background-origin: border-box;
+}
+
+.ph-checkbox:checked {
+  background-image: url("data:image/svg+xml,%3csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 12'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M1 5.917 5.724 10.5 15 1.5'/%3e%3c/svg%3e");
+  background-size: 0.55em 0.55em;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.ph-checkbox:indeterminate {
+  background-image: url("data:image/svg+xml,%3csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 12'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M0.5 6h14'/%3e%3c/svg%3e");
+  background-size: 0.55em 0.55em;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Modal / confirmation animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Horizontally scrollable strips (tab controls) without a visible scrollbar */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
