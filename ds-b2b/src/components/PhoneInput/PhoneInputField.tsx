@@ -51,7 +51,7 @@ const PhoneInputField: React.FC<PhoneInputFieldProps> = ({
   }
 
   return (
-    <div className={`phone-input-wrapper ${error ? 'phone-input-error' : ''} ${className}`}>
+    <div className={`ds-phone-input-wrapper ${error ? 'ds-phone-input-error' : ''} ${className}`}>
       <PhoneInput
         international
         flags={Flags}
@@ -64,7 +64,7 @@ const PhoneInputField: React.FC<PhoneInputFieldProps> = ({
         placeholder={placeholder}
         id={id}
         name={name}
-        className="phone-input-field"
+        className="ds-phone-input-field"
       />
     </div>
   )

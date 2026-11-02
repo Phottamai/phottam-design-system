@@ -1,6 +1,6 @@
 {
   "name": "@phottamai/ds-b2b",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Pure UI primitives for Phottam B2B (buttons, form items, modals, search, navigation), ported from phottam-desktop",
   "type": "module",
   "main": "dist/index.cjs",
@@ -21,6 +21,7 @@
       "default": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./desktop-spinners.css": "./dist/desktop-spinners.css",
     "./fonts.css": "./dist/fonts.css",
     "./tailwind-preset": {
       "types": "./tailwind/preset.d.cts",
@@ -31,7 +32,7 @@
   },
   "scripts": {
     "build": "vite build && npm run build:css",
-    "build:css": "tailwindcss -c tailwind.styles.config.ts -i src/styles/package.css -o dist/styles.css --minify && cp src/styles/fonts.css dist/fonts.css && cp -R src/styles/fonts dist/fonts",
+    "build:css": "tailwindcss -c tailwind.styles.config.ts -i src/styles/package.css -o dist/styles.css --minify && cp src/styles/desktop-spinners.css dist/desktop-spinners.css && cp src/styles/fonts.css dist/fonts.css && cp -R src/styles/fonts dist/fonts",
     "clean": "rm -rf dist storybook-static",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

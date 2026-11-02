@@ -159,7 +159,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, description, duration = 30
   const styles = getStyles()
 
   return (
-    <div className="w-full max-w-md animate-[slideInRight_0.25s_cubic-bezier(0.16,1,0.3,1)]">
+    <div className="w-full max-w-md animate-[ds-slideInRight_0.25s_cubic-bezier(0.16,1,0.3,1)]">
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -206,7 +206,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, description, duration = 30
       </div>
 
       <style>{`
-        @keyframes slideInRight {
+        @keyframes ds-slideInRight {
           from {
             transform: translateX(1.5rem);
             opacity: 0;

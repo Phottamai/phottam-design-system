@@ -25,7 +25,7 @@ export function RotatingSearchPlaceholder({
 
   return (
     <span
-      className="flex min-w-0 w-full items-center gap-1 font-['Frank_Ruhl_Libre'] text-xs text-gray-600 dark:text-gray-300"
+      className="flex min-w-0 w-full items-center gap-1 text-xs text-gray-600 dark:text-gray-300"
       aria-hidden
     >
       <span className="shrink-0 whitespace-pre leading-none">{prefix.trim()}</span>

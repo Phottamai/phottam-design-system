@@ -23,7 +23,7 @@ export function Switcher({
     <div
       ref={containerRef}
       role="tablist"
-      className={`inline-flex max-w-full overflow-x-auto scrollbar-none rounded-lg bg-gray-100 p-0.5 dark:bg-slate-800/80 transition-opacity duration-200 ${disabled ? 'opacity-60 pointer-events-none' : ''}`}
+      className={`inline-flex max-w-full overflow-x-auto ds-scrollbar-none rounded-lg bg-gray-100 p-0.5 dark:bg-slate-800/80 transition-opacity duration-200 ${disabled ? 'opacity-60 pointer-events-none' : ''}`}
     >
       {tabs.map((tab, idx) => {
         const isActive = activeTab === idx

@@ -144,8 +144,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
           min={disablePastDates ? today : undefined}
           className={[
             size === 'sm'
-              ? 'theme-input w-full rounded-lg border px-2.5 py-1 text-xs h-8'
-              : 'theme-input w-full rounded-lg border px-3 py-2 text-sm',
+              ? 'ds-theme-input w-full rounded-lg border px-2.5 py-1 text-xs h-8'
+              : 'ds-theme-input w-full rounded-lg border px-3 py-2 text-sm',
             'bg-white text-gray-900 dark:bg-ph-dark-lite dark:text-gray-100',
             'focus:outline-none focus:ring-2 focus:ring-purple-500/40',
             '[color-scheme:light] dark:[color-scheme:dark]',

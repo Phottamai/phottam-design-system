@@ -55,7 +55,7 @@ const getNatureClasses = (
       case 'warning':
         return `${baseClasses} border-2 border-yellow-500 dark:border-yellow-400 text-yellow-600 dark:text-yellow-500 bg-transparent hover:bg-yellow-55 dark:hover:bg-yellow-900/20`
       default:
-        return `${baseClasses} ph-button-secondary`
+        return `${baseClasses} ds-button-secondary`
     }
   }
 
@@ -74,14 +74,14 @@ const getNatureClasses = (
       case 'warning':
         return `${baseClasses} text-yellow-600 dark:text-yellow-500 bg-transparent hover:bg-yellow-50 dark:hover:bg-yellow-900/20`
       default:
-        return `${baseClasses} ph-button-tertiary`
+        return `${baseClasses} ds-button-tertiary`
     }
   }
 
   // Default variant (solid)
   switch (nature) {
     case 'primary':
-      return `${baseClasses} text-white phottam-theme`
+      return `${baseClasses} text-white ds-phottam-theme`
     case 'secondary':
       return `${baseClasses} border border-[#EBE1FF] dark:border-ph-border-dark text-[#7F3CFF] dark:text-purple-400 rounded-lg bg-white dark:bg-ph-dark-lite px-4 py-2 transition-all duration-200 hover:opacity-80 dark:hover:bg-ph-dark`
     case 'tertiary':
@@ -93,7 +93,7 @@ const getNatureClasses = (
     case 'warning':
       return `${baseClasses} bg-yellow-600 dark:bg-yellow-500 hover:bg-yellow-700 dark:hover:bg-yellow-600 text-white`
     default:
-      return `${baseClasses} text-white phottam-theme`
+      return `${baseClasses} text-white ds-phottam-theme`
   }
 }
 

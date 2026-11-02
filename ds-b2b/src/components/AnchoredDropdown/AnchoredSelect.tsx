@@ -34,13 +34,13 @@ export type AnchoredSelectProps = {
 }
 
 const DEFAULT_TRIGGER_CLASS =
-  "flex min-w-[9rem] items-center justify-between gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-left font-['Frank_Ruhl_Libre'] text-sm font-medium text-gray-900 transition-colors hover:border-purple-400 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 disabled:hover:border-gray-200 dark:border-gray-600 dark:bg-gray-800/60 dark:text-gray-100 dark:disabled:bg-gray-800/40 dark:disabled:text-gray-400 dark:disabled:border-gray-600 dark:disabled:hover:border-gray-600"
+  'flex min-w-[9rem] items-center justify-between gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-left text-sm font-medium text-gray-900 transition-colors hover:border-purple-400 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 disabled:hover:border-gray-200 dark:border-gray-600 dark:bg-gray-800/60 dark:text-gray-100 dark:disabled:bg-gray-800/40 dark:disabled:text-gray-400 dark:disabled:border-gray-600 dark:disabled:hover:border-gray-600'
 
 const DEFAULT_PANEL_CLASS =
   'overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-[#0f1015]'
 
 const DEFAULT_OPTION_CLASS =
-  "flex w-full px-3 py-2 text-left font-['Frank_Ruhl_Libre'] text-xs font-medium text-gray-900 transition-colors hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-ph-dark-lite"
+  'flex w-full px-3 py-2 text-left text-xs font-medium text-gray-900 transition-colors hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-ph-dark-lite'
 
 const DEFAULT_SELECTED_OPTION_CLASS =
   'bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-200'

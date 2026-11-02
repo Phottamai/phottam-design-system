@@ -35,7 +35,7 @@ const Label: React.FC<LabelProps> = ({
 }) => {
   const baseClasses = [
     'font-medium transition-colors duration-200',
-    'theme-text-primary',
+    'ds-theme-text-primary',
     sizeMap[size]
   ]
 

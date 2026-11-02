@@ -33,11 +33,21 @@ Components are styled with Tailwind utility classes, which **your app's Tailwind
 import '@phottamai/ds-b2b/styles.css'
 ```
 
-It contains the shared component classes (`phottam-theme`, `theme-input`, …), the modal animations, the loader, the phone-input styles and the checkbox checkmark. It is plain CSS with no preflight and no utilities, and it never targets global elements, so it's safe in any app.
+It contains the shared component classes (`ds-phottam-theme`, `ds-theme-input`, …), the modal animations, the loader, the phone-input styles and the checkbox checkmark. It is plain CSS with no preflight and no utilities.
+
+**It can't restyle anything your app already has.** Every class and `@keyframes` name is prefixed with `ds-` (the only exception is react-phone-number-input's own `.PhoneInput*` classes), and nothing targets global elements. This matters in Next.js, where a stylesheet stays loaded after navigating away from the route that imported it.
+
+### 1a. Desktop-style spinners (optional, phottam-desktop only)
+
+```ts
+import '@phottamai/ds-b2b/desktop-spinners.css'
+```
+
+This restyles **every** `animate-spin rounded-full` ring spinner in the app, including Button's and Input's loading states, as the desktop's sliding loader. It is app-wide by design, so only phottam-desktop loads it. Without it, those spinners stay normal Tailwind rings.
 
 ### 2. Let your Tailwind see the components
 
-**Tailwind 3** (phottam-desktop, phottam-web): add the preset and the package's `dist` to `content`.
+**Tailwind 3** (phottam-desktop, phottam-web): add the package's `dist` to `content`. Add the preset only if your app doesn't already define the `ph-*` colours (desktop and web both do).
 
 ```ts
 // tailwind.config.ts
@@ -65,7 +75,15 @@ The preset and theme add only the tokens stock Tailwind lacks: `ph-dark`, `ph-da
 
 Dark styles key off a `.dark` class on an ancestor (usually `<html>`), as in the desktop app.
 
-### 4. Fonts (optional)
+### 4. Fonts
+
+Components use **your app's font** (they inherit it), so they match the surrounding UI: Plus Jakarta Sans in phottam-desktop, Inter in phottam-web. Two CSS variables let an app choose otherwise:
+
+| Variable            | Used for                                               | Default   |
+| ------------------- | ------------------------------------------------------ | --------- |
+| `--ds-font-heading` | `ModalWindow` titles (when `serifHeader`, the default) | `inherit` |
+
+`fonts.css` is opt-in:
 
 ```ts
 import '@phottamai/ds-b2b/fonts.css'
@@ -172,6 +190,12 @@ Everything not listed here is a straight copy with import paths rewritten.
 - **`DatePicker`, `Breadcrumbs`**: icons come from `react-icons/pi` (the same Phosphor glyphs) instead of `@phosphor-icons/react`. Phosphor 2.1.10's CommonJS build can't be `require()`d.
 - **Types**: components use `import type { JSX } from 'react'`, so the declarations work with React 19's types, which drop the global `JSX` namespace.
 
+**Needed so other apps can load it (1.1.0)**
+
+- **Namespaced CSS:** every class and keyframe the package defines is prefixed with `ds-` (e.g. `phottam-theme` → `ds-phottam-theme`, `fadeIn` → `ds-fadeIn`), so it can't clash with an app's own classes of the same name.
+- **Opt-in global spinner restyle:** the desktop rule that turns every `animate-spin rounded-full` spinner into the sliding loader moved from `styles.css` to `desktop-spinners.css`.
+- **Fonts inherit:** components no longer name "Frank Ruhl Libre" (desktop aliased it to Plus Jakarta, but other apps would fall back to a serif). They inherit the app's font, and `ModalWindow` titles can opt into `--ds-font-heading`. `FONT_FRANK` is now `inherit`.
+
 **Moved**
 
 - **`AnchoredActionMenu`**: class strings from `constants/listingCardStyles.ts` live in `src/tokens/menuStyles.ts`, with `useCardMenuPlacement` next to the menu.
@@ -207,6 +231,7 @@ The `LongLabel…`, `ManyTabs`, `LongTitle`, `LongEmails`, `LongTextWithAdd`, `L
 | `dist/index.js`, `index.cjs`   | `src/index.ts`                             | `vite.config.ts` (library mode)     |
 | `dist/**/*.d.ts`               | `src/**`                                   | `vite-plugin-dts`                   |
 | `dist/styles.css`              | `src/styles/package.css`                   | Tailwind CLI (`@apply` → plain CSS) |
+| `dist/desktop-spinners.css`    | `src/styles/desktop-spinners.css`          | copied                              |
 | `dist/fonts.css`, `dist/fonts` | `src/styles/fonts.css`, `src/styles/fonts` | copied                              |
 | `tailwind/preset.cjs`          | hand-written                               | shipped as-is (Tailwind 3)          |
 | `tailwind/theme.css`           | hand-written                               | shipped as-is (Tailwind 4)          |

@@ -127,12 +127,12 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   const overlay = (
     <div
-      className={`fixed inset-0 ${zIndexClass} flex items-center justify-center bg-black/60 dark:bg-black/80 backdrop-blur-sm animate-fadeIn`}
+      className={`fixed inset-0 ${zIndexClass} flex items-center justify-center bg-black/60 dark:bg-black/80 backdrop-blur-sm ds-animate-fadeIn`}
       style={overlayZIndexStyle(zIndexClass)}
       onClick={disableOverlayClose ? undefined : onClose}
     >
       <div
-        className={`relative bg-white dark:bg-[#0a0b10] rounded-2xl shadow-2xl ${panelMaxWidthClass} w-full mx-4 overflow-hidden animate-scaleIn border border-gray-200 dark:border-gray-800 ${panelClassName}`.trim()}
+        className={`relative bg-white dark:bg-[#0a0b10] rounded-2xl shadow-2xl ${panelMaxWidthClass} w-full mx-4 overflow-hidden ds-animate-scaleIn border border-gray-200 dark:border-gray-800 ${panelClassName}`.trim()}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Accent gradient top bar */}
@@ -145,7 +145,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           {/* Icon */}
           <div className={`flex shrink-0 justify-center ${compact ? 'mb-2.5' : 'mb-3.5'}`}>
             <div
-              className={`${style.iconBg} ${style.iconColor} ${compact ? 'w-10 h-10' : 'w-12 h-12'} rounded-full flex items-center justify-center animate-pulse-subtle`}
+              className={`${style.iconBg} ${style.iconColor} ${compact ? 'w-10 h-10' : 'w-12 h-12'} rounded-full flex items-center justify-center ds-animate-pulse-subtle`}
             >
               <Icon className={compact ? 'text-lg' : 'text-xl'} />
             </div>

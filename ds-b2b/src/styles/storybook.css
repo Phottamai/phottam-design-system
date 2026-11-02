@@ -1,6 +1,8 @@
 /* Storybook only: the app-level setup a consumer would have (fonts, Tailwind, body font). */
 @import './fonts.css';
 @import './package.css';
+/* Storybook mirrors phottam-desktop, which opts in to the global spinner restyle. */
+@import './desktop-spinners.css';
 
 @tailwind base;
 @tailwind components;

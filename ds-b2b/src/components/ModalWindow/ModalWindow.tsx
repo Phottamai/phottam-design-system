@@ -40,7 +40,7 @@ interface ModalWindowProps {
   zIndexClass?: string
   /** Render overlay in document.body to escape nested stacking contexts */
   portal?: boolean
-  /** Toggle serif vs sans-serif font for the modal header title (default: true) */
+  /** Use the --ds-font-heading CSS variable for the header title, if the app sets one (default: true) */
   serifHeader?: boolean
   /** Small text rendered directly under the title inside the header */
   headerDescription?: ReactNode
@@ -141,11 +141,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
       return (
         <p
           className={`${titleClass} ${extraClassName}`.trim()}
-          style={
-            serifHeader
-              ? { fontFamily: "'Frank Ruhl Libre', 'Frank_Ruhl_Libre', serif" }
-              : undefined
-          }
+          style={serifHeader ? { fontFamily: 'var(--ds-font-heading, inherit)' } : undefined}
           title={title}
         >
           {title}
@@ -158,7 +154,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 
   const overlay = (
     <div
-      className={`fixed inset-0 ${zIndexClass} flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fadeIn ${
+      className={`fixed inset-0 ${zIndexClass} flex items-center justify-center bg-black/40 backdrop-blur-sm ds-animate-fadeIn ${
         backdropClassName ?? 'p-4'
       }`}
       style={overlayZIndexStyle(zIndexClass)}
@@ -167,7 +163,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
       <div
         style={panelStyle}
         onClick={(e) => e.stopPropagation()}
-        className={`relative rounded-2xl shadow-2xl flex flex-col animate-scaleIn ${
+        className={`relative rounded-2xl shadow-2xl flex flex-col ds-animate-scaleIn ${
           fitContent ? 'h-auto max-h-full w-auto' : 'w-full max-h-[90vh] overflow-hidden'
         } ${
           panelClassName ??

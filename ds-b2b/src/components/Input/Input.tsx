@@ -106,8 +106,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           }`
 
         default:
-          return `${baseClasses} theme-input
-          ${error ? 'theme-input-error' : ''}`
+          return `${baseClasses} ds-theme-input
+          ${error ? 'ds-theme-input-error' : ''}`
       }
     }
 
@@ -131,7 +131,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={fullWidth ? 'w-full' : 'w-auto'}>
         {/* Label */}
         {label && (
-          <label htmlFor={inputId} className="block text-sm font-medium theme-text-primary mb-2">
+          <label htmlFor={inputId} className="block text-sm font-medium ds-theme-text-primary mb-2">
             {label}
             {required && <span className="text-red-600 dark:text-red-400 ml-1">*</span>}
           </label>
@@ -227,7 +227,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
         {/* Help Text */}
         {helpText && !error && (
-          <p id={`${inputId}-help`} className="mt-1 text-sm theme-text-muted">
+          <p id={`${inputId}-help`} className="mt-1 text-sm ds-theme-text-muted">
             {helpText}
           </p>
         )}

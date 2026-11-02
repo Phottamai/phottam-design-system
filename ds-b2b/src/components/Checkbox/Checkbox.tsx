@@ -49,7 +49,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   const checkboxClasses = [
     sizeMap[size],
-    'ph-checkbox rounded border-2 transition-all duration-200 ease-in-out',
+    'ds-checkbox rounded border-2 transition-all duration-200 ease-in-out',
     'focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800',
     error
       ? 'border-red-500 dark:border-red-400 text-red-600 dark:text-red-400 focus:ring-red-500 dark:focus:ring-red-400'

@@ -35,7 +35,7 @@ export default function SegmentedTabControl({
     <div
       ref={containerRef}
       role="tablist"
-      className={`flex max-w-full items-center overflow-x-auto scrollbar-none ${disabled ? 'pointer-events-none opacity-60' : ''} ${className}`}
+      className={`flex max-w-full items-center overflow-x-auto ds-scrollbar-none ${disabled ? 'pointer-events-none opacity-60' : ''} ${className}`}
     >
       {tabs.map((tab, index) => {
         const isActive = activeKey === tab.key

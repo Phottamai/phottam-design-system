@@ -27,7 +27,7 @@ const fieldShellCompact =
   'flex h-[34px] w-full max-w-md flex-1 items-center gap-2 rounded-lg border border-[#E9E9E9] bg-[#F7F7F7] px-2.5 shadow-sm focus-within:border-[#6829F3]/35 focus-within:outline-none focus-within:ring-1 focus-within:ring-inset focus-within:ring-[#6E22FF]/15 dark:border-gray-600 dark:bg-gray-800/60 dark:focus-within:border-purple-400/50 dark:focus-within:ring-purple-400/20'
 
 const inputClass =
-  "min-h-0 min-w-0 flex-1 border-0 bg-transparent px-0 py-0 font-['Frank_Ruhl_Libre'] text-xs leading-normal text-[#120037] shadow-none focus:outline-none focus:ring-0 dark:text-gray-300 placeholder:font-['Frank_Ruhl_Libre'] placeholder:text-gray-600 dark:placeholder:text-gray-300"
+  'min-h-0 min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-xs leading-normal text-[#120037] shadow-none focus:outline-none focus:ring-0 dark:text-gray-300 placeholder:text-gray-600 dark:placeholder:text-gray-300'
 
 const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   (

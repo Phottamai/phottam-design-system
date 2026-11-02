@@ -126,12 +126,12 @@ Peer dependencies are `react` and `react-dom` (>=18), `framer-motion` (>=10) and
 
 The components use Tailwind utility classes, which **the app's own Tailwind generates** by scanning the package. A small precompiled `styles.css` covers the rest. Pick the recipe for your app:
 
-| App             | Stack                 | What to change                                                                          |
-| --------------- | --------------------- | --------------------------------------------------------------------------------------- |
-| phottam-desktop | Electron + Vite, TW 3 | `tailwind.config.ts` content path, plus `styles.css` in `src/renderer/src/main.tsx`     |
-| phottam-web     | Next.js 16, TW 3      | `tailwind.config.ts` preset and content path, plus `styles.css` in `src/app/layout.tsx` |
-| Phottam-b2b-pwa | Next.js 16, TW 4      | `app/globals.css` theme import, plus `styles.css` in `app/layout.tsx`                   |
-| phottam-b2c     | Next.js 16, TW 4      | Same as b2b-pwa, **plus** a class-based dark variant (see below)                        |
+| App             | Stack                 | What to change                                                                                                 |
+| --------------- | --------------------- | -------------------------------------------------------------------------------------------------------------- |
+| phottam-desktop | Electron + Vite, TW 3 | `tailwind.config.ts` content path, plus `styles.css` and `desktop-spinners.css` in `src/renderer/src/main.tsx` |
+| phottam-web     | Next.js 16, TW 3      | `tailwind.config.ts` content path, plus `styles.css` in `src/app/dashboard/layout.tsx` (dashboard only)        |
+| Phottam-b2b-pwa | Next.js 16, TW 4      | `app/globals.css` theme import, plus `styles.css` in `app/layout.tsx`                                          |
+| phottam-b2c     | Next.js 16, TW 4      | Same as b2b-pwa, **plus** a class-based dark variant (see below)                                               |
 
 #### phottam-desktop (Tailwind 3)
 
@@ -148,29 +148,29 @@ content: [
 ```ts
 // src/renderer/src/main.tsx
 import '@phottamai/ds-b2b/styles.css'
+// Desktop only: restyles every `animate-spin rounded-full` spinner app-wide as the sliding loader.
+import '@phottamai/ds-b2b/desktop-spinners.css'
 ```
 
-#### phottam-web (Tailwind 3)
+#### phottam-web (Tailwind 3, `/dashboard` only)
+
+ds-b2b is used **only under `/dashboard`**. Public routes (client, sga, WhatsApp routes, site pages, auth, digital invitations, …) keep phottam-web's own components.
 
 ```ts
-// tailwind.config.ts
-import dsB2bPreset from '@phottamai/ds-b2b/tailwind-preset'
-
-export default {
-  presets: [dsB2bPreset],
-  content: [
-    // ...existing entries
-    './node_modules/@phottamai/ds-b2b/dist/**/*.{js,cjs}'
-  ]
-  // darkMode: 'class' is already set
-}
+// tailwind.config.ts: no preset. Web already has identical ph-* colours and purple palette,
+// and the preset's Plus Jakarta font isn't loaded in web.
+content: [
+  // ...existing entries
+  './node_modules/@phottamai/ds-b2b/dist/**/*.{js,cjs}'
+],
 ```
 
 ```tsx
-// src/app/layout.tsx
+// src/app/dashboard/layout.tsx
 import '@phottamai/ds-b2b/styles.css'
-import './globals.css'
 ```
+
+`npm run build` first runs `scripts/check-ds-boundary.mjs` (as `prebuild`). It walks the import graph from every non-dashboard route and fails the build, showing the import chain, if any of them reaches a file that imports `@phottamai/ds-b2b`. In practice: import ds-b2b only in files that public routes don't also import. Run it on its own with `npm run check:ds-boundary`.
 
 #### Phottam-b2b-pwa (Tailwind 4)
 
